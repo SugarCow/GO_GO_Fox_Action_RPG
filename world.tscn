@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://i3xhq8cwykb5"]
+
+[ext_resource type="PackedScene" uid="uid://buiap8n54slst" path="res://Player/player.tscn" id="2_gpb7l"]
+[ext_resource type="PackedScene" uid="uid://dxu8jumrjvhcv" path="res://bush.tscn" id="2_pmcl2"]
+
+[node name="World" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CharacterBody2D" parent="." instance=ExtResource("2_gpb7l")]
+position = Vector2(94, 48)
+
+[node name="StaticBody2D" parent="." instance=ExtResource("2_pmcl2")]
+position = Vector2(48, 48)
+
+[node name="StaticBody2D2" parent="." instance=ExtResource("2_pmcl2")]
+position = Vector2(256, 56)
+
+[node name="StaticBody2D3" parent="." instance=ExtResource("2_pmcl2")]
+position = Vector2(64, 128)
