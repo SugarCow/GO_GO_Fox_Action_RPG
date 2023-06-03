@@ -7,11 +7,16 @@ var direction;
 const acceleration = 500 # the rate of which the speed changes overtime, so a higher value will mean it will reach the max_speed faster
 const max_speed = 80; 
 const friction = 500 # used for decelerating movements so that the movement is more smooth
-
+const roll_speed = 400
 enum {  #short for enumerations similar to const
 	MOVE, #rtepresents 1 
 	ROLL,  # represents 2 
 	ATTACK # represents 3 
+}
+enum {  #short for enumerations similar to const
+	run, #rtepresents 1 
+	roll,  # represents 2 
+	attack # represents 3 
 }
 var state = MOVE
 
@@ -30,7 +35,7 @@ func _physics_process(delta):
 		MOVE:
 			move_state(delta)
 		ROLL: 
-			pass
+			roll_state(delta, input_direction)
 		ATTACK: 
 			attack_state(delta)
 			
@@ -38,6 +43,11 @@ func attack_state(delta):
 	
 	animation_state.travel("attack")
 
+func roll_state(delta, dir):
+	animation_state.travel("roll")
+	dir = dir.normalized()
+	velocity = velocity.move_toward(dir * roll_speed, 200 * delta) 
+	move_and_slide()
 	
 	
 
@@ -53,6 +63,8 @@ func move_state(delta):
 		animation_tree.set("parameters/run/blend_position", input_direction)
 		animation_tree.set("parameters/idle/blend_position", input_direction)
 		animation_tree.set("parameters/attack/blend_position", input_direction) 
+		animation_tree.set("parameters/roll/blend_position", input_direction) 
+		
 		animation_state.travel("run")
 		
 #		velocity += input_direction * accleration * delta
@@ -68,7 +80,21 @@ func move_state(delta):
 	move_and_slide()
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK 
+	if Input.is_action_just_pressed("roll"):
+		state = ROLL
 	
 
-func _on_animation_tree_animation_finished(anim_name):
+#func _on_animation_tree_animation_finished(anim_name):
+#	match anim_name:
+#		attack:
+#			state = MOVE
+#		roll: 
+#			state = MOVE
+		
+		
+func attack_animation_finished():
 	state = MOVE
+
+func roll_animation_finsihed():
+	state = MOVE
+
