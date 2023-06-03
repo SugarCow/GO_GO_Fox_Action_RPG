@@ -8,13 +8,37 @@ const acceleration = 500 # the rate of which the speed changes overtime, so a hi
 const max_speed = 80; 
 const friction = 500 # used for decelerating movements so that the movement is more smooth
 
+enum {  #short for enumerations similar to const
+	MOVE, #rtepresents 1 
+	ROLL,  # represents 2 
+	ATTACK # represents 3 
+}
+var state 
+
 @onready var animation_player =  $AnimationPlayer
 @onready var animation_tree = $AnimationTree
 @onready var animation_state = animation_tree.get("parameters/playback")
 
 var input_direction = Vector2.ZERO
 
-func _physics_process(delta):		
+func _ready():
+	animation_tree.active = true
+
+func _physics_process(delta):
+	
+	match state:  # same as the switch statement 
+		MOVE:
+			move_state(delta)
+		ROLL: 
+			pass
+		ATTACK: 
+			attack_state(delta)
+			
+func attack_state(delta):
+	pass
+	
+
+func move_state(delta):
 	input_direction = Vector2( 
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") -  Input.get_action_strength("ui_up"))
@@ -35,24 +59,9 @@ func _physics_process(delta):
 		animation_state.travel("idle")
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta ) 
 
-		
-#	if input_direction.x > 0:
-#
-#		animation_player.play("run_right")
-##		get_node("AnimatedSprite2D").h_flip = true
-#	if input_direction.x < 0:
-#		animation_player.play("run_left")
-##		get_node("AnimatedSprite2D").h_flip = false
-#	if input_direction.y > 0:
-#		if abs(input_direction.x) <= abs(input_direction.y):
-#			animation_player.play("run_down")
-#
-#
-#	if input_direction.y < 0:
-#		if abs(input_direction.x) <= abs(input_direction.y):
-#			animation_player.play("run_up")
-
-#		get_node("AnimatedSprite2D").h_flip = false
 	print(input_direction)
 #	move_and_slide()
 	move_and_slide()
+	if Input.is_action_just_pressed("attack"):
+		state = ATTACK 
+	
