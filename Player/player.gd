@@ -13,9 +13,9 @@ enum {  #short for enumerations similar to const
 	ROLL,  # represents 2 
 	ATTACK # represents 3 
 }
-var state 
+var state = MOVE
 
-@onready var animation_player =  $AnimationPlayer
+
 @onready var animation_tree = $AnimationTree
 @onready var animation_state = animation_tree.get("parameters/playback")
 
@@ -35,7 +35,10 @@ func _physics_process(delta):
 			attack_state(delta)
 			
 func attack_state(delta):
-	pass
+	
+	animation_state.travel("attack")
+
+	
 	
 
 func move_state(delta):
@@ -49,6 +52,7 @@ func move_state(delta):
 	if input_direction != Vector2.ZERO:
 		animation_tree.set("parameters/run/blend_position", input_direction)
 		animation_tree.set("parameters/idle/blend_position", input_direction)
+		animation_tree.set("parameters/attack/blend_position", input_direction) 
 		animation_state.travel("run")
 		
 #		velocity += input_direction * accleration * delta
@@ -65,3 +69,6 @@ func move_state(delta):
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK 
 	
+
+func _on_animation_tree_animation_finished(anim_name):
+	state = MOVE
