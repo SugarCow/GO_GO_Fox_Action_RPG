@@ -29,7 +29,7 @@ var input_direction = Vector2.ZERO
 func _ready():
 	animation_tree.active = true
 
-func _physics_process(delta):
+func _process(delta): # use this instead of the _physis_process() because we are not using any kinematic body functionaility
 
 	match state:  # same as the switch statement 
 		MOVE:
@@ -40,6 +40,7 @@ func _physics_process(delta):
 			attack_state(delta)
 
 func attack_state(delta):
+	velocity = Vector2.ZERO
 	animation_state.travel("attack")
 
 func roll_state(delta, dir):

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dec7puk15fg6y"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pgkjd"]
+height = 34.7675
+
+[node name="HitBox" type="Area2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.117981, 1.76977)
+shape = SubResource("CapsuleShape2D_pgkjd")
