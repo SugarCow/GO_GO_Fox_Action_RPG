@@ -18,11 +18,11 @@ func create_grass_effect():
 	
 	grassEffect.global_position = self.global_position
 	queue_free()
-	get_node("res://hurt_box.tscn").queue_free()
+	
 
 
 
 
 func _on_hurt_box_area_entered(area):
 	create_grass_effect()
-	queue_free()
+

@@ -870,6 +870,7 @@ texture_region_size = Vector2i(32, 32)
 [sub_resource type="TileSet" id="TileSet_trgeu"]
 tile_size = Vector2i(32, 32)
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_csq5y")
 terrain_set_0/mode = 0
 terrain_set_0/terrain_0/name = "Terrain 0"
@@ -939,4 +940,4 @@ position = Vector2(88, 97)
 position = Vector2(224, 112)
 
 [node name="grass4" parent="ysort/Grasses" instance=ExtResource("6_p40pu")]
-position = Vector2(176, 8)
+position = Vector2(176, 24)

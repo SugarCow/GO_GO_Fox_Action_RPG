@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_wycpb"]
 [ext_resource type="Texture2D" uid="uid://b46yvtmlhqdar" path="res://Player/Player.png" id="2_b8fjk"]
-[ext_resource type="PackedScene" uid="uid://dec7puk15fg6y" path="res://hit_box.tscn" id="3_u0nr2"]
 
 [sub_resource type="Animation" id="Animation_wl7bf"]
 length = 0.001
@@ -1348,7 +1347,11 @@ graph_offset = Vector2(0, -31.2811)
 
 [sub_resource type="AnimationNodeStateMachinePlayback" id="AnimationNodeStateMachinePlayback_bf8bb"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pgkjd"]
+height = 34.7675
+
 [node name="Player" type="CharacterBody2D"]
+collision_layer = 2
 script = ExtResource("1_wycpb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1381,13 +1384,15 @@ parameters/run/blend_position = Vector2(0.00300753, -0.0240175)
 [node name="HitBoxPivot" type="Marker2D" parent="."]
 position = Vector2(0, -4)
 
-[node name="SwordHitBox" parent="HitBoxPivot" instance=ExtResource("3_u0nr2")]
+[node name="SwordHitBox" type="Area2D" parent="HitBoxPivot"]
 position = Vector2(0, 15)
 rotation = -1.58999
+collision_layer = 0
+collision_mask = 8
+collision_priority = 0.0
 
-[node name="CollisionShape2D" parent="HitBoxPivot/SwordHitBox" index="0"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/SwordHitBox"]
 position = Vector2(0.117981, 3.0676)
+shape = SubResource("CapsuleShape2D_pgkjd")
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
-
-[editable path="HitBoxPivot/SwordHitBox"]
