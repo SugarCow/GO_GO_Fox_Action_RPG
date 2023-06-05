@@ -25,17 +25,17 @@ var state = MOVE
 @onready var animation_state = animation_tree.get("parameters/playback")
 
 var input_direction = Vector2.ZERO
-
+var roll_direction = Vector2.DOWN
 func _ready():
 	animation_tree.active = true
 
-func _process(delta): # use this instead of the _physis_process() because we are not using any kinematic body functionaility
+func _process(delta): # use this instead of the _physis_process() because we are not using any characterBody2D functionaility
 
 	match state:  # same as the switch statement 
 		MOVE:
 			move_state(delta)
 		ROLL: 
-			roll_state(delta, input_direction)
+			roll_state(delta, roll_direction)
 		ATTACK: 
 			attack_state(delta)
 
@@ -55,16 +55,18 @@ func move_state(delta):
 		Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left"),
 		Input.get_action_strength("ui_down") -  Input.get_action_strength("ui_up"))
 		
+	
 	input_direction = input_direction.normalized() # the vector is normalized so that the player moves at consistent speed, this will prevent the 
 													# the player from moving faster in the diagonal direction
-
-
+	
+	
+	
 	if input_direction != Vector2.ZERO:
 		animation_tree.set("parameters/run/blend_position", input_direction)
 		animation_tree.set("parameters/idle/blend_position", input_direction)
 		animation_tree.set("parameters/attack/blend_position", input_direction) 
 		animation_tree.set("parameters/roll/blend_position", input_direction) 
-
+		roll_direction = input_direction
 		animation_state.travel("run")
 
 #		velocity += input_direction * accleration * delta
