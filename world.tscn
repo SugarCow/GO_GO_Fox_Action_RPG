@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://i3xhq8cwykb5"]
+[gd_scene load_steps=13 format=3 uid="uid://i3xhq8cwykb5"]
 
 [ext_resource type="Texture2D" uid="uid://blwh5mhf1ueoa" path="res://World/GrassBackground.png" id="1_ibyiu"]
 [ext_resource type="PackedScene" uid="uid://buiap8n54slst" path="res://Player/player.tscn" id="2_gpb7l"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://di8xlrhjmhulv" path="res://World/DirtTileset.png" id="2_x713q"]
 [ext_resource type="Texture2D" uid="uid://cvbbcy1oh10gh" path="res://World/CliffTileset.png" id="3_1kr8d"]
 [ext_resource type="PackedScene" uid="uid://dx6xr2as0fql4" path="res://grass.tscn" id="6_p40pu"]
+[ext_resource type="PackedScene" uid="uid://dyocurbs3ep3j" path="res://bat.tscn" id="7_xp0oo"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_dk5ux"]
 texture = ExtResource("2_x713q")
@@ -897,7 +898,7 @@ position = Vector2(8, 0)
 tile_set = SubResource("TileSet_trgeu")
 cell_quadrant_size = 32
 format = 2
-layer_0/tile_data = PackedInt32Array(0, 262144, 0, 1, 65536, 3, 2, 393216, 0, 3, 65536, 0, 4, 65536, 0, 5, 327680, 0, 65536, 196608, 1, 131072, 196608, 1, 196608, 196608, 1, 262144, 196608, 1, 327680, 196608, 1, 393216, 262144, 2, 458752, 0, 2, 458753, 65536, 2, 458754, 65536, 2, 458755, 65536, 2, 458756, 65536, 2, 458757, 65536, 2, 458758, 65536, 2, 458759, 65536, 2, 458760, 131072, 2, 393224, 327680, 0, 393225, 458752, 3, 327689, 196608, 1, 262153, 196608, 1, 196617, 196608, 1, 131081, 196608, 1, 65545, 196608, 1, 9, 458752, 0, 8, 65536, 3, 7, 65536, 3, 6, 65536, 3, 393217, 65536, 0, 393218, 65536, 0, 393219, 65536, 0, 393220, 524288, 2, 393221, 65536, 0, 393222, 65536, 0, 393223, 65536, 0, 65538, 0, 2, 65539, 65536, 2, 65540, 524288, 1, 65541, 131072, 2, 131076, 196608, 1, 196612, 196608, 1, 262148, 196608, 1, 327684, 196608, 1, 131083, 0, 3, 131084, 524288, 0, 196620, 196608, 1, 131085, 131072, 3, 131110, 196608, 3, 262157, 65536, 0, 262158, 131072, 0, 327694, 131072, 1, 393230, 131072, 2, 393229, 65536, 2, 393228, 0, 2, 327692, 0, 1, 262156, 262144, 2, 327693, 65536, 1, 196624, 0, 1, 196625, 65536, 1, 196626, 131072, 1, 262162, 131072, 1, 262161, 65536, 1, 327698, 131072, 1, 393234, 131072, 2, 393233, 65536, 2, 393232, 0, 2, 327696, 0, 1, 262160, 0, 1, 327697, 65536, 1, 16, 262144, 0, 17, 65536, 3, 18, 458752, 0, 65554, 196608, 1, 131090, 458752, 2, 131089, 65536, 0, 131088, 262144, 2, 65552, 196608, 1)
+layer_0/tile_data = PackedInt32Array(0, 262144, 0, 1, 65536, 3, 2, 393216, 0, 3, 65536, 0, 4, 65536, 0, 5, 327680, 0, 65536, 196608, 1, 131072, 196608, 1, 196608, 196608, 1, 262144, 196608, 1, 327680, 196608, 1, 393216, 262144, 2, 458752, 0, 2, 458753, 65536, 2, 458754, 65536, 2, 458755, 65536, 2, 458756, 65536, 2, 458757, 65536, 2, 458758, 65536, 2, 458759, 65536, 2, 458760, 131072, 2, 393225, 458752, 3, 327689, 196608, 1, 262153, 196608, 1, 196617, 196608, 1, 131081, 196608, 1, 65545, 196608, 1, 9, 458752, 0, 8, 65536, 3, 7, 65536, 3, 6, 65536, 3, 131083, 0, 3, 131084, 524288, 0, 196620, 196608, 1, 131085, 131072, 3, 131110, 196608, 3, 262157, 65536, 0, 262158, 131072, 0, 327694, 131072, 1, 393230, 131072, 2, 393229, 65536, 2, 393228, 0, 2, 327692, 0, 1, 262156, 262144, 2, 327693, 65536, 1, 196624, 0, 1, 196625, 65536, 1, 196626, 131072, 1, 262162, 131072, 1, 262161, 65536, 1, 327698, 131072, 1, 393234, 131072, 2, 393233, 65536, 2, 393232, 0, 2, 327696, 0, 1, 262160, 0, 1, 327697, 65536, 1, 16, 262144, 0, 17, 65536, 3, 18, 458752, 0, 65554, 196608, 1, 131090, 458752, 2, 131089, 65536, 0, 131088, 262144, 2, 65552, 196608, 1)
 
 [node name="Background" type="Sprite2D" parent="."]
 visible = false
@@ -910,8 +911,16 @@ region_rect = Rect2(0, 0, 1600, 800)
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="CharacterBody2D" parent="ysort" instance=ExtResource("2_gpb7l")]
-position = Vector2(56, 80)
+[node name="Mobs" type="Node2D" parent="ysort"]
+
+[node name="Bat" parent="ysort/Mobs" instance=ExtResource("7_xp0oo")]
+position = Vector2(112, 32)
+
+[node name="Bat2" parent="ysort/Mobs" instance=ExtResource("7_xp0oo")]
+position = Vector2(176, 208)
+
+[node name="Player" parent="ysort" instance=ExtResource("2_gpb7l")]
+position = Vector2(88, 24)
 
 [node name="Node2D" type="Node2D" parent="ysort"]
 y_sort_enabled = true

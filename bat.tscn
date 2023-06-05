@@ -1,0 +1,112 @@
+[gd_scene load_steps=14 format=3 uid="uid://dyocurbs3ep3j"]
+
+[ext_resource type="Texture2D" uid="uid://dnarygcbq1tjh" path="res://Enemies/Bat.png" id="1_1gslf"]
+[ext_resource type="Script" path="res://bat.gd" id="1_6jeqg"]
+[ext_resource type="Texture2D" uid="uid://dwggyxgq0bqd0" path="res://Shadows/SmallShadow.png" id="2_shkhx"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wsfy"]
+atlas = ExtResource("1_1gslf")
+region = Rect2(0, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2ddr"]
+atlas = ExtResource("1_1gslf")
+region = Rect2(16, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n12gp"]
+atlas = ExtResource("1_1gslf")
+region = Rect2(32, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2a5u"]
+atlas = ExtResource("1_1gslf")
+region = Rect2(48, 0, 16, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_abcpp"]
+atlas = ExtResource("1_1gslf")
+region = Rect2(64, 0, 16, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xrgdy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wsfy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y2ddr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n12gp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2a5u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_abcpp")
+}],
+"loop": true,
+"name": &"Fly",
+"speed": 15.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f7oum"]
+radius = 13.679
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_s582x"]
+radius = 4.12311
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pc417"]
+size = Vector2(22.4019, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_lcl3r"]
+size = Vector2(8.11987, 6)
+
+[node name="Bat" type="CharacterBody2D"]
+scale = Vector2(0.985238, 1)
+collision_layer = 8
+collision_mask = 128
+script = ExtResource("1_6jeqg")
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_xrgdy")
+animation = &"Fly"
+frame_progress = 0.935483
+offset = Vector2(0, -13.276)
+
+[node name="shadow" type="Sprite2D" parent="."]
+texture = ExtResource("2_shkhx")
+
+[node name="DetectPlayer" type="Area2D" parent="."]
+collision_layer = 32
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectPlayer"]
+scale = Vector2(6.234, -6.319)
+shape = SubResource("CircleShape2D_f7oum")
+
+[node name="AttackArea" type="Area2D" parent="."]
+scale = Vector2(3.17847, 1.06179)
+collision_layer = 64
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+scale = Vector2(0.483992, 1.31576)
+shape = SubResource("CircleShape2D_s582x")
+
+[node name="HurtBox" type="Area2D" parent="."]
+position = Vector2(0, -4)
+scale = Vector2(1, 0.840001)
+collision_layer = 8
+collision_mask = 128
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
+position = Vector2(0.0321256, -11)
+scale = Vector2(0.818412, 1.27471)
+shape = SubResource("RectangleShape2D_pc417")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_lcl3r")
+
+[connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
+[connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
+[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
+[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]

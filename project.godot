@@ -71,6 +71,10 @@ roll={
 2d_physics/layer_2="Player"
 2d_physics/layer_3="PlayerHurtBox"
 2d_physics/layer_4="EnemyHurtBox"
+2d_physics/layer_5="Enemy"
+2d_physics/layer_6="PlayerDetection"
+2d_physics/layer_7="EnemyHitbox"
+2d_physics/layer_8="PlayerHitbox"
 
 [rendering]
 

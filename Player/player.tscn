@@ -601,6 +601,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id="Animation_8q36f"]
 resource_name = "run_down"
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -629,6 +630,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_0vtqa"]
 resource_name = "run_left"
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -657,6 +659,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_533w2"]
 resource_name = "run_right"
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -685,6 +688,7 @@ tracks/1/keys = {
 [sub_resource type="Animation" id="Animation_lvc0p"]
 resource_name = "run_up"
 length = 0.6
+loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -1344,6 +1348,7 @@ height = 34.7675
 
 [node name="Player" type="CharacterBody2D"]
 collision_layer = 2
+collision_mask = 97
 script = ExtResource("1_wycpb")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1356,7 +1361,8 @@ libraries = {
 position = Vector2(0.280617, -9.48448)
 rotation = 0.00245332
 sprite_frames = SubResource("SpriteFrames_m4rkk")
-animation = &"roll_down "
+animation = &"run_right"
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.0701637, -0.0393829)
@@ -1379,7 +1385,7 @@ position = Vector2(0, -4)
 [node name="SwordHitBox" type="Area2D" parent="HitBoxPivot"]
 position = Vector2(0, 15)
 rotation = -1.58999
-collision_layer = 4
+collision_layer = 128
 collision_mask = 8
 collision_priority = 0.0
 
