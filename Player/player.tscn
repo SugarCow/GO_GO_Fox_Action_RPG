@@ -51,7 +51,7 @@ tracks/3/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [false]
+"values": [true]
 }
 
 [sub_resource type="Animation" id="Animation_30rpe"]
@@ -1387,12 +1387,13 @@ position = Vector2(0, -4)
 [node name="SwordHitBox" type="Area2D" parent="HitBoxPivot"]
 position = Vector2(0, 15)
 rotation = -1.58999
-collision_layer = 0
+collision_layer = 4
 collision_mask = 8
 collision_priority = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/SwordHitBox"]
 position = Vector2(0.117981, 3.0676)
 shape = SubResource("CapsuleShape2D_pgkjd")
+disabled = true
 
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]

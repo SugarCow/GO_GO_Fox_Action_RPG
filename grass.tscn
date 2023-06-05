@@ -16,7 +16,7 @@ script = ExtResource("2_hsas7")
 [node name="HurtBox" type="Area2D" parent="."]
 position = Vector2(8, 8)
 collision_layer = 8
-collision_mask = 0
+collision_mask = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
 scale = Vector2(0.795808, 0.767113)

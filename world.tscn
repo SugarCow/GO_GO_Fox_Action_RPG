@@ -940,4 +940,4 @@ position = Vector2(88, 97)
 position = Vector2(224, 112)
 
 [node name="grass4" parent="ysort/Grasses" instance=ExtResource("6_p40pu")]
-position = Vector2(176, 24)
+position = Vector2(176, 16)
