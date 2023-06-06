@@ -911,17 +911,6 @@ region_rect = Rect2(0, 0, 1600, 800)
 [node name="ysort" type="Node2D" parent="."]
 y_sort_enabled = true
 
-[node name="Mobs" type="Node2D" parent="ysort"]
-
-[node name="Bat" parent="ysort/Mobs" instance=ExtResource("7_xp0oo")]
-position = Vector2(112, 32)
-
-[node name="Bat2" parent="ysort/Mobs" instance=ExtResource("7_xp0oo")]
-position = Vector2(176, 208)
-
-[node name="Player" parent="ysort" instance=ExtResource("2_gpb7l")]
-position = Vector2(88, 24)
-
 [node name="Node2D" type="Node2D" parent="ysort"]
 y_sort_enabled = true
 
@@ -950,3 +939,17 @@ position = Vector2(224, 112)
 
 [node name="grass4" parent="ysort/Grasses" instance=ExtResource("6_p40pu")]
 position = Vector2(176, 24)
+
+[node name="Player" parent="ysort" instance=ExtResource("2_gpb7l")]
+position = Vector2(104, 64)
+
+[node name="Mobs" type="Node2D" parent="."]
+
+[node name="Bat" parent="Mobs" instance=ExtResource("7_xp0oo")]
+position = Vector2(168, 48)
+
+[node name="Bat2" parent="Mobs" instance=ExtResource("7_xp0oo")]
+position = Vector2(56, 224)
+
+[node name="Bat3" parent="Mobs" instance=ExtResource("7_xp0oo")]
+position = Vector2(280, 216)

@@ -8,50 +8,50 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("AnimatedSprite2D:animation")
+tracks/0/path = NodePath("HitBoxPivot:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [&"run_right"]
+"update": 0,
+"values": [0.0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("AnimatedSprite2D:frame")
+tracks/1/path = NodePath("HitBoxPivot/SwordHitBox/CollisionShape2D:disabled")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [4]
+"values": [true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("HitBoxPivot:rotation")
+tracks/2/path = NodePath("AnimatedSprite2D:animation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"update": 1,
+"values": [&"idle"]
 }
 tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("HitBoxPivot/SwordHitBox/CollisionShape2D:disabled")
+tracks/3/path = NodePath("AnimatedSprite2D:frame")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"times": PackedFloat32Array(0),
+"times": PackedFloat32Array(0.1),
 "transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [true]
+"values": [0]
 }
 
 [sub_resource type="Animation" id="Animation_30rpe"]
@@ -1361,8 +1361,7 @@ libraries = {
 position = Vector2(0.280617, -9.48448)
 rotation = 0.00245332
 sprite_frames = SubResource("SpriteFrames_m4rkk")
-animation = &"run_right"
-frame = 4
+animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.0701637, -0.0393829)
@@ -1374,10 +1373,10 @@ shape = SubResource("CapsuleShape2D_hq8tt")
 tree_root = SubResource("AnimationNodeStateMachine_3jqgj")
 anim_player = NodePath("../AnimationPlayer")
 parameters/playback = SubResource("AnimationNodeStateMachinePlayback_bf8bb")
-parameters/attack/blend_position = Vector2(0.00165403, 0.00436687)
-parameters/idle/blend_position = Vector2(0.00150371, 0.0240176)
-parameters/roll/blend_position = Vector2(0.00451124, -0.0131004)
-parameters/run/blend_position = Vector2(0.00300753, -0.0240175)
+parameters/attack/blend_position = Vector2(0, 1)
+parameters/idle/blend_position = Vector2(0, 1)
+parameters/roll/blend_position = Vector2(0, 1)
+parameters/run/blend_position = Vector2(0, 1)
 
 [node name="HitBoxPivot" type="Marker2D" parent="."]
 position = Vector2(0, -4)
@@ -1387,7 +1386,6 @@ position = Vector2(0, 15)
 rotation = -1.58999
 collision_layer = 128
 collision_mask = 8
-collision_priority = 0.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitBoxPivot/SwordHitBox"]
 position = Vector2(0.117981, 3.0676)

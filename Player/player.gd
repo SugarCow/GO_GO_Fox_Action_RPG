@@ -4,10 +4,12 @@ extends CharacterBody2D
 # Called when the node enters the scene tree for the first time.
 
 var direction;
-const acceleration = 500 # the rate of which the speed changes overtime, so a higher value will mean it will reach the max_speed faster
-const max_speed = 80; 
-const friction = 500 # used for decelerating movements so that the movement is more smooth
-const roll_speed = 400
+@export var acceleration = 500 # the rate of which the speed changes overtime, so a higher value will mean it will reach the max_speed faster
+@export var max_speed = 80; 
+@export var friction = 500 # used for decelerating movements so that the movement is more smooth
+@export var roll_speed = 400
+var roll_finished = true
+
 enum {  #short for enumerations similar to const
 	MOVE, #rtepresents 1 
 	ROLL,  # represents 2 
@@ -26,6 +28,7 @@ var state = MOVE
 
 var input_direction = Vector2.ZERO
 var roll_direction = Vector2.DOWN
+var facing_direction = Vector2.DOWN # used for the knockback direction of enemies
 func _ready():
 	animation_tree.active = true
 
@@ -67,6 +70,7 @@ func move_state(delta):
 		animation_tree.set("parameters/attack/blend_position", input_direction) 
 		animation_tree.set("parameters/roll/blend_position", input_direction) 
 		roll_direction = input_direction
+		facing_direction = input_direction
 		animation_state.travel("run")
 
 #		velocity += input_direction * accleration * delta
@@ -77,13 +81,15 @@ func move_state(delta):
 		animation_state.travel("idle")
 		velocity = velocity.move_toward(Vector2.ZERO, friction * delta ) 
 
-	print(input_direction)
+	
+		
 #	move_and_slide()
 	move_and_slide()
 	if Input.is_action_just_pressed("attack"):
 		state = ATTACK 
-	if Input.is_action_just_pressed("roll"):
-		state = ROLL
+	if Input.is_action_just_pressed("roll") and roll_finished == true  :
+		state = ROLL 
+		roll_finished = false
 	
 
 #func _on_animation_tree_animation_finished(anim_name):
@@ -97,5 +103,8 @@ func attack_animation_finished():
 	state = MOVE
 
 func roll_animation_finsihed():
+	velocity = velocity.move_toward(Vector2.ZERO, friction ) 
+	move_and_slide()
 	state = MOVE
+	roll_finished = true
 

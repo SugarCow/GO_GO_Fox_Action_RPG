@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://dyocurbs3ep3j"]
+[gd_scene load_steps=15 format=3 uid="uid://dyocurbs3ep3j"]
 
 [ext_resource type="Texture2D" uid="uid://dnarygcbq1tjh" path="res://Enemies/Bat.png" id="1_1gslf"]
 [ext_resource type="Script" path="res://bat.gd" id="1_6jeqg"]
 [ext_resource type="Texture2D" uid="uid://dwggyxgq0bqd0" path="res://Shadows/SmallShadow.png" id="2_shkhx"]
+[ext_resource type="PackedScene" uid="uid://dn8xfd5v1iuoh" path="res://stats.tscn" id="4_f1f0v"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5wsfy"]
 atlas = ExtResource("1_1gslf")
@@ -54,7 +55,7 @@ radius = 13.679
 radius = 4.12311
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_pc417"]
-size = Vector2(22.4019, 20)
+size = Vector2(22.4019, 14.4726)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcl3r"]
 size = Vector2(8.11987, 6)
@@ -98,15 +99,20 @@ collision_layer = 8
 collision_mask = 128
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HurtBox"]
-position = Vector2(0.0321256, -11)
-scale = Vector2(0.818412, 1.27471)
+position = Vector2(0.0321256, -8.33332)
+rotation = -3.14159
+scale = Vector2(0.9321, -2.3032)
 shape = SubResource("RectangleShape2D_pc417")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_lcl3r")
 
+[node name="Stats" parent="." instance=ExtResource("4_f1f0v")]
+max_health = 3
+
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
-[connection signal="area_entered" from="AttackArea" to="." method="_on_attack_area_area_entered"]
 [connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_body_entered"]
-[connection signal="body_entered" from="HurtBox" to="." method="_on_hurt_box_body_entered"]
+[connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+[connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
