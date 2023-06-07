@@ -1,7 +1,8 @@
-[gd_scene load_steps=114 format=3 uid="uid://buiap8n54slst"]
+[gd_scene load_steps=115 format=3 uid="uid://buiap8n54slst"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_wycpb"]
 [ext_resource type="Texture2D" uid="uid://b46yvtmlhqdar" path="res://Player/Player.png" id="2_b8fjk"]
+[ext_resource type="PackedScene" uid="uid://cjax42vc8kobe" path="res://hurt_box.tscn" id="3_7um4p"]
 
 [sub_resource type="Animation" id="Animation_wl7bf"]
 length = 0.001
@@ -1392,4 +1393,11 @@ position = Vector2(0.117981, 3.0676)
 shape = SubResource("CapsuleShape2D_pgkjd")
 disabled = true
 
+[node name="HurtBox" parent="." instance=ExtResource("3_7um4p")]
+collision_layer = 4
+collision_mask = 64
+
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
+[connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
+
+[editable path="HurtBox"]

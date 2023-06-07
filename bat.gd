@@ -1,12 +1,11 @@
 extends CharacterBody2D
 
-@onready var anim = $AnimatedSprite
+@onready var anim = $AnimatedSprite2D
 @onready var stats = $Stats
 enum {
 	PATROL,
 	FOLLOW, 
-	ATTACK,
-	KNOCK_BACK
+	ATTACK
 }
 
 const patrol_speed = 25
@@ -25,6 +24,8 @@ var dir = Vector2.LEFT
 var player
 var health = 5
 
+const death_effect = preload("res://enemy_death.tscn")
+const hurt_effect = preload("res://hit_effect.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	player = get_node("../../ysort/Player")
@@ -35,7 +36,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	velocity = knockback.move_toward(Vector2.ZERO, 500 * delta)
+	velocity = knockback.move_toward(Vector2.ZERO, 500  * delta)
 	knockback = velocity
 	move_and_slide()
 	match state: 
@@ -45,8 +46,7 @@ func _process(delta):
 			follow()
 		ATTACK:
 			attack()
-		KNOCK_BACK:
-			knock_back(delta)
+	move_and_slide()
 
 	if state == PATROL and timer > 0:
 		timer -= 1
@@ -55,12 +55,10 @@ func _process(delta):
 			
 func patrol():
 	velocity = dir * patrol_speed 
-	
 	if timer <= 0: 
 		dir = -dir
-		
 		timer = change_direction_timer
-	
+		
 	if dir.x > 0:
 		anim.flip_h = false
 	else: anim.flip_h = true
@@ -68,25 +66,21 @@ func patrol():
 	move_and_slide()
 
 func follow():
-	player = get_node("../../ysort/Player")
-	var target_direction = (player.position - self.position).normalized()
+	player = get_node("../../Player")
+	var target_direction = ((player.position - self.position)- Vector2(0,10)).normalized()
 	if target_direction.x > 0:
 		anim.flip_h = false
 	else: anim.flip_h = true
-	velocity = target_direction * follow_speed 
+	velocity = velocity.move_toward(target_direction * follow_speed , 200)
 	move_and_slide()
 	
 func attack():
 	follow()
 	if attk_timer > 0:
-		attk_timer -= 0
-		print("attacking Player")
+		attk_timer -= 1
 	if attk_timer <= 0:
 		attk_timer = attack_cooldown
 		
-
-func knock_back(delta):
-	pass
 		
 
 	
@@ -112,11 +106,21 @@ func _on_hurt_box_area_entered(area):
 	knockback = player.facing_direction * 250
 	being_knocked = true
 	stats.health -= 1
-	print(stats.health)
+	
+	var hurtEffect = hurt_effect.instantiate()
+	var main = get_tree().current_scene
+	main.add_child(hurtEffect)
+	hurtEffect.global_position = self.global_position
+	
+	
 	
 
 
 func _on_stats_no_health():
+	var deathEffect = death_effect.instantiate() 
+	var main = get_tree().current_scene
+	main.add_child(deathEffect)
+	deathEffect.global_position = self.global_position
 	queue_free()
 
 
@@ -124,3 +128,7 @@ func _on_stats_no_health():
 func _on_attack_area_body_exited(body):
 	if body.name == "Player":
 		state = FOLLOW
+
+
+
+

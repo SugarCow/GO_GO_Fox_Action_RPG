@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://dyocurbs3ep3j"]
+[gd_scene load_steps=17 format=3 uid="uid://dyocurbs3ep3j"]
 
 [ext_resource type="Texture2D" uid="uid://dnarygcbq1tjh" path="res://Enemies/Bat.png" id="1_1gslf"]
 [ext_resource type="Script" path="res://bat.gd" id="1_6jeqg"]
 [ext_resource type="Texture2D" uid="uid://dwggyxgq0bqd0" path="res://Shadows/SmallShadow.png" id="2_shkhx"]
 [ext_resource type="PackedScene" uid="uid://dn8xfd5v1iuoh" path="res://stats.tscn" id="4_f1f0v"]
+[ext_resource type="PackedScene" uid="uid://dec7puk15fg6y" path="res://hit_box.tscn" id="5_vt7kw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5wsfy"]
 atlas = ExtResource("1_1gslf")
@@ -60,22 +61,27 @@ size = Vector2(22.4019, 14.4726)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lcl3r"]
 size = Vector2(8.11987, 6)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_stjns"]
+
 [node name="Bat" type="CharacterBody2D"]
 scale = Vector2(0.985238, 1)
 collision_layer = 8
 collision_mask = 128
 script = ExtResource("1_6jeqg")
 
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="."]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_xrgdy")
 animation = &"Fly"
 frame_progress = 0.935483
-offset = Vector2(0, -13.276)
+centered = false
+offset = Vector2(-8, -8)
 
 [node name="shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 18)
 texture = ExtResource("2_shkhx")
 
 [node name="DetectPlayer" type="Area2D" parent="."]
+position = Vector2(1.01498, 8)
 collision_layer = 32
 collision_mask = 2
 
@@ -84,6 +90,7 @@ scale = Vector2(6.234, -6.319)
 shape = SubResource("CircleShape2D_f7oum")
 
 [node name="AttackArea" type="Area2D" parent="."]
+position = Vector2(0, 18)
 scale = Vector2(3.17847, 1.06179)
 collision_layer = 64
 collision_mask = 2
@@ -93,7 +100,7 @@ scale = Vector2(0.483992, 1.31576)
 shape = SubResource("CircleShape2D_s582x")
 
 [node name="HurtBox" type="Area2D" parent="."]
-position = Vector2(0, -4)
+position = Vector2(1.01498, 15)
 scale = Vector2(1, 0.840001)
 collision_layer = 8
 collision_mask = 128
@@ -105,10 +112,22 @@ scale = Vector2(0.9321, -2.3032)
 shape = SubResource("RectangleShape2D_pc417")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 18)
 shape = SubResource("RectangleShape2D_lcl3r")
 
 [node name="Stats" parent="." instance=ExtResource("4_f1f0v")]
 max_health = 3
+
+[node name="HitBox" parent="." instance=ExtResource("5_vt7kw")]
+position = Vector2(0, 1.90735e-06)
+scale = Vector2(0.763195, 0.397183)
+collision_layer = 64
+collision_mask = 4
+
+[node name="CollisionShape2D" parent="HitBox" index="0"]
+position = Vector2(1.19209e-07, 0)
+scale = Vector2(0.822919, 1)
+shape = SubResource("CircleShape2D_stjns")
 
 [connection signal="body_entered" from="DetectPlayer" to="." method="_on_detect_player_body_entered"]
 [connection signal="body_exited" from="DetectPlayer" to="." method="_on_detect_player_body_exited"]
@@ -116,3 +135,6 @@ max_health = 3
 [connection signal="body_exited" from="AttackArea" to="." method="_on_attack_area_body_exited"]
 [connection signal="area_entered" from="HurtBox" to="." method="_on_hurt_box_area_entered"]
 [connection signal="no_health" from="Stats" to="." method="_on_stats_no_health"]
+[connection signal="area_entered" from="HitBox" to="." method="_on_hit_box_area_entered"]
+
+[editable path="HitBox"]

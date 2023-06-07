@@ -21,7 +21,7 @@ enum {  #short for enumerations similar to const
 	attack # represents 3 
 }
 var state = MOVE
-
+var stats = PlayerStats
 
 @onready var animation_tree = $AnimationTree
 @onready var animation_state = animation_tree.get("parameters/playback")
@@ -30,6 +30,7 @@ var input_direction = Vector2.ZERO
 var roll_direction = Vector2.DOWN
 var facing_direction = Vector2.DOWN # used for the knockback direction of enemies
 func _ready():
+	stats.no_health.connect(queue_free)
 	animation_tree.active = true
 
 func _process(delta): # use this instead of the _physis_process() because we are not using any characterBody2D functionaility
@@ -108,3 +109,8 @@ func roll_animation_finsihed():
 	state = MOVE
 	roll_finished = true
 
+
+
+func _on_hurt_box_area_entered(area):
+	stats.health -= 1
+	print("health depleting")

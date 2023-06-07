@@ -5,13 +5,12 @@ extends Node
 func _ready():
 	pass # Replace with function body.
 
-
+const grass_effect = preload("res://GrassEffect.tscn")
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func create_grass_effect():
 
-	var GrassEffect = load("res://grass_effect.tscn")
-	var grassEffect = GrassEffect.instantiate()
-	
+
+	var grassEffect = grass_effect.instantiate()
 	var main = get_tree().current_scene # find the grasses node to spawn the effects for the grass
 	main.add_child(grassEffect) #create an instance of grass effect
 	

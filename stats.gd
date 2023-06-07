@@ -1,7 +1,9 @@
 extends Node
 
-@export var max_health = 2
+@export var max_health = 200
+@export var is_player = false
 @onready var health = max_health:
+
 	get: 
 		return health 
 	set(value):
